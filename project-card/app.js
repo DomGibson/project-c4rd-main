@@ -1,13 +1,19 @@
 const cardWrapper = document.querySelector(".cardWrapper");
 const card = document.getElementById("card");
 const highlight = document.querySelector(".highlight");
-const container = document.querySelector(".container")
+const container = document.querySelector(".container");
+
+const inputName = document.getElementById("input-box-text");
+const cardHolderName = document.getElementById("cardholder-name-text");
+const inputNameSubmit = document.getElementById("input-box-submit");
 
 const mostX = 10;
 const mostY = 10;
 
+// MOUSE MOVE ANIMATION
+
 cardWrapper.addEventListener("mousemove", (e) => {
-    card.style.transition = "none";
+    card.style.transition = "all .25s linear";
     highlight.style.transition = "none";
 
     const x = e.offsetX;
@@ -19,14 +25,14 @@ cardWrapper.addEventListener("mousemove", (e) => {
     const rotationY = ((x - halfWidth) / halfWidth) * mostX;
     const rotationX = ((y - halfHeight) / halfHeight) * mostY;
 
-    card.style.transform = `rotateY(${rotationY}deg) rotateX(${rotationX}deg)`
+    card.style.transform = `rotateY(${rotationY}deg) rotateX(${rotationX}deg)`;
 
-    highlight.style.left = `${(rotationY / mostY * 100) * -1}%`
-    highlight.style.top = `${(rotationX / mostX * 100) * -1}%`
+    highlight.style.left = `${(rotationY / mostY * 100) * -1}%`;
+    highlight.style.top = `${(rotationX / mostX * 100) * -1}%`;
 })
 
 // NUMBERS
-var myCardNumber = document.getElementById("cardDigits")
+var myCardNumber = document.getElementById("cardDigits");
 
 const val = Math.floor(1000 + Math.random() * 9000);
 
@@ -36,7 +42,9 @@ function numGenerator() {
             myCardNumber.style.fontSize = "3rem";
             myCardNumber.style.fontStyle = "italic";
             myCardNumber.style.marginBottom = "10px";
-            myCardNumber.textContent = `${val}`
+            myCardNumber.textContent = `${val}`;
+            myCardNumber.style.transition = "all .05s ease-in";
+
         }, 1000);
     });
 }
@@ -44,36 +52,45 @@ numGenerator()
 
 
 
-setTimeout(() => {
-    console.log(`Card Number Shown = ${val}, A Real Shame You Can't See The Numbers Under The Stars...`); 
-}, 2500);
-
-setTimeout(() => {
-    console.log(`BooHoo, Cry About It... All You Know Is ${val} Are The Last Numbers`); 
-}, 5000);
-
+// COLOURS FROM PALLETE
 
 const colorPallete = [
-    "#006E7F",
-    "#F8CB2E",
-    "#EE5007",
-    "#B22727",
-    "#D82148",
-    "#6EBF8B",
-    "#ED5EDD",
-    "#548CFF",
-]
+    "006E7F",
+    "F8CB2E",
+    "EE5007",
+    "B22727",
+    "D82148",
+    "6EBF8B",
+    "ED5EDD",
+    "548CFF",
+];
 
-const random = Math.floor(Math.random() * colorPallete.length);
+function randomColorsOne() {
+    return '#' + colorPallete[Math.floor(Math.random() * colorPallete.length)];
+}
 
 cardWrapper.addEventListener("click", () => {
-    console.log(`TEST`);
+    card.style.backgroundColor = `${randomColorsOne()}`;
+    card.style.transition = "all 1s ease-in";
+
+})
+
+function randomColorsTwo() {
+    return '#' + Math.floor(Math.random() * 16777215).toString(16);
+}
+
+cardWrapper.addEventListener("click", () => {
+    cardWrapper.style.color = `${randomColorsTwo()}`;
+    cardWrapper.style.transition = "all 1s ease-in";
+
+})
+
+// NAME INPUT
+
+inputNameSubmit.addEventListener("click", () => {
+    cardHolderName.textContent = `${inputName.value.toUpperCase()}`;
 })
 
 
-cardWrapper.addEventListener("click", () => {
-    console.log(`Waaaay, You Tried..... Just Know, ${val} Are The Last Numbers, On This Card, Bozo`); 
-    cardWrapper.style.color = "red";
-})
 
 
